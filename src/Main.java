@@ -23,26 +23,11 @@ public class Main {
                 {"Webcam", "320,00"}
         };
         String [][] cart = new String[10][3];
-
+        
         do {
-            System.out.println("===== ORDER TERMINAL =====\n" +
-                    "1 - Listar produtos\n" +
-                    "2 - Adicionar item ao pedido\n" +
-                    "3 - Ver pedido atual\n" +
-                    "4 - Finalizar pedido\n" +
-                    "0 - Sair sem finalizar\n\n\n\n");
-            if (!s.hasNext()){
-                continue;
-            }
-            boolean hasIntFirst = s.hasNextInt();
-            select = s.nextInt();
-            boolean menuOption = CheckMenuOptions(select, hasIntFirst);
-            if (!menuOption){
-                System.out.println("Digite um valor válido!");
-                continue;
-            }
+            exibirMenu();
 
-
+            select = lerInt(s);
 
             switch (select) {
                 case 1:
@@ -121,12 +106,28 @@ public class Main {
 
                         cartQuantity += 1;
                     }
-            }
 
+                case 3:
+
+                default:
+                    System.out.println("Digite um número válido!");
+
+            }
+            select = 1;
         }while (select != 0);
 
-
     }
+
+    public static void exibirMenu(){
+        System.out.println("===== ORDER TERMINAL =====\n" +
+                "1 - Listar produtos\n" +
+                "2 - Adicionar item ao pedido\n" +
+                "3 - Ver pedido atual\n" +
+                "4 - Finalizar pedido\n" +
+                "0 - Sair sem finalizar\n\n\n\n");
+    }
+
+
 
     public static boolean checkQuantityChoice(String productQuantity){
         int quantity;
@@ -151,15 +152,11 @@ public class Main {
         return true;
     }
 
-
-    public static boolean CheckMenuOptions(int menuOption, boolean hasInterger){
-        if (menuOption > 4 || menuOption < 0){
-            return false;
+    public static int lerInt(Scanner s) {
+        while (!s.hasNextInt()) {
+            System.out.println("Digite um número válido!");
+            s.next(); // descarta o caractere inválido do buffer
         }
-        if (hasInterger){
-            return true;
-        }
-
-        return false;
+        return s.nextInt();
     }
 }
